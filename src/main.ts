@@ -1,5 +1,13 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from "vue"
 
-createApp(App).mount('#app')
+import "./style.css"
+import App from "./App.vue"
+import { createPinia } from "pinia"
+import router from "@/router"
+
+// 现在，你可以使用 `dialog.show()` 来显示对话框
+const pinia = createPinia()
+const app = createApp(App)
+app.use(router)
+app.use(pinia)
+app.mount("#app")

@@ -1,31 +1,19 @@
-<script setup lang="ts">
-import { onMounted } from "vue"
-
-const name = "demo"
-
-onMounted(() => {
-  console.log(name)
-})
-</script>
 <template>
-  <div class="container mx-auto bg-gray-200">
-    <p class="mb-5 text-3xl font-bold text-center text-gray-700">Welcome!</p>
+  <div class="flex">
+    <div class="flex-none bg-gray-200 w-14 h-14">01</div>
+    <div class="flex-initial bg-red-200 w-64 ...">02</div>
+    <div class="flex-initial bg-blue-200 w-32 ...">03</div>
   </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
+<script setup lang="ts">
+import { onMounted } from "vue"
+import { ILoading, IToast } from "@/common/mount.ts"
+import { useUserStore } from "@/store/user.ts"
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+const userStore = useUserStore()
+onMounted(() => {
+  IToast({ msg: userStore.name, duration: 30000 })
+  // ILoading.start()
+})
+</script>

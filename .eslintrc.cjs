@@ -8,6 +8,7 @@ module.exports = {
     "standard-with-typescript",
     "plugin:vue/vue3-essential",
     "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   overrides: [
     {
@@ -15,16 +16,18 @@ module.exports = {
       rules: { "vue/multi-word-component-names": "off" },
     },
   ],
+
+  parser: "vue-eslint-parser",
+  plugins: ["vue","@typescript-eslint"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
+    parser: "@typescript-eslint/parser",
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.json'],
+    extraFileExtensions: ['.vue'],
   },
-  plugins: ["vue", eslint({ lintOnStart: true, cache: false })],
-  // 在.env.production文件中配置VITE_DROP_CONSOLE = true,
-  // 打包时自动去除console和debugger
-  esbuild: {
-    drop: env?.VITE_DROP_CONSOLE === "true" ? ["console", "debugger"] : [],
-  },
+
   rules: {
     // 解决ESLint和Prettier的switch/case缩进冲突
     indent: ["error", 2, { SwitchCase: 1 }],
@@ -34,5 +37,7 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     // 允许catch空着
     "no-empty": ["error", { allowEmptyCatch: true }],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/strict-boolean-expressions":"off"
   },
 };
